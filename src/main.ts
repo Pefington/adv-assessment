@@ -25,6 +25,15 @@ interface Product {
 //   totalPrice: PriceInCents;
 // }
 
+export function calculateBasketTaxes(basket: Basket): PriceInCents {
+  let basketTaxes = 0;
+  for (const product of basket) {
+    const productTaxes = calculateProductTax(product);
+    basketTaxes += productTaxes * product.quantity;
+  }
+  return basketTaxes;
+}
+
 export function calculateAfterTaxProductPrice(product: Product): PriceInCents {
   const productTaxesInCents = calculateProductTax(product);
   return product.priceInCents + productTaxesInCents;
