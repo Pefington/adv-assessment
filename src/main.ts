@@ -7,32 +7,40 @@ const enum TAX_RATE {
 const ADDITIONAL_IMPORT_TAX_RATE = 5;
 const ROUNDING_STEP = 5;
 
+type Basket = Product[];
+type PriceInCents = number;
+
 interface Product {
   nameSingular: string;
   namePlural: string;
   taxRate: TAX_RATE;
   isImported: boolean;
-  priceInCents: number;
+  priceInCents: PriceInCents;
   quantity: number;
 }
 
-type Basket = Product[];
-type taxInCents = number;
+// interface Invoice {
+//   basket: Basket;
+//   totalTaxes: PriceInCents;
+//   totalPrice: PriceInCents;
+// }
 
-export function calculateProductTax(product: Product): taxInCents {
-  let taxRate = product.taxRate;
-  if ( product.isImported ) taxRate += ADDITIONAL_IMPORT_TAX_RATE;
-
-  const totalTaxInCents = ( product.priceInCents * taxRate ) / 100;
-
-  const roundingRemainder = totalTaxInCents % ROUNDING_STEP;
-  if ( roundingRemainder === 0 ) return totalTaxInCents
-
-  const roundingCorrection = ROUNDING_STEP - roundingRemainder
-  return totalTaxInCents + roundingCorrection;
+export function calculateAfterTaxProductPrice(product: Product): PriceInCents {
+  const productTaxesInCents = calculateProductTax(product);
+  return product.priceInCents + productTaxesInCents;
 }
 
+export function calculateProductTax(product: Product): PriceInCents {
+  let taxRate = product.taxRate;
+  if (product.isImported) taxRate += ADDITIONAL_IMPORT_TAX_RATE;
 
+  const totalTaxInCents = (product.priceInCents * taxRate) / 100;
+  const roundingRemainder = totalTaxInCents % ROUNDING_STEP;
+  if (roundingRemainder === 0) return totalTaxInCents;
+
+  const roundingCorrection = ROUNDING_STEP - roundingRemainder;
+  return totalTaxInCents + roundingCorrection;
+}
 
 export const basket1: Basket = [
   {
