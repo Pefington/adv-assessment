@@ -3,6 +3,7 @@ import {
   calculateProductTax,
   calculateAfterTaxProductPrice,
   calculateBasketTaxes,
+  calculateBasketTotal
 } from '../src/main.ts';
 
 const testProductLocal = {
@@ -59,3 +60,9 @@ describe('calculateBasketTaxes', () => {
     expect(calculateBasketTaxes(testBasket)).toStrictEqual(65);
   });
 });
+
+describe('calculateBasketTotal', () => {
+  it("should return the total price for the basket, including taxes", () => {
+    expect(calculateBasketTotal(testBasket)).toStrictEqual(545);
+  });
+} );
