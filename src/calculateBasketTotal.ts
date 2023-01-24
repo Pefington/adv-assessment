@@ -2,10 +2,7 @@ import { calculateProductPrice } from './calculateProductPrice.js';
 import { Basket, PriceInCents } from './types.js';
 
 export function calculateBasketTotal(basket: Basket): PriceInCents {
-  let basketTotal = 0;
-  for (const product of basket) {
-    const productPrice = calculateProductPrice(product);
-    basketTotal += productPrice * product.quantity;
-  }
-  return basketTotal;
+  return basket.reduce((total, product): PriceInCents => {
+    return total + calculateProductPrice(product) * product.quantity;
+  }, 0);
 }
