@@ -12,7 +12,12 @@ describe('generateInvoice', () => {
           price: 2799,
           total: 6998,
         },
-        { quantity: 1, name: 'flacon de parfum', price: 1899, total: 2279 },
+        {
+          quantity: 1,
+          name: 'flacon de parfum',
+          price: 1899,
+          total: 2279,
+        },
         {
           quantity: 3,
           name: 'boîtes de pilules contre la migraine',
