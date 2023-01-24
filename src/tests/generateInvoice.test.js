@@ -1,15 +1,30 @@
 import { describe, it, expect } from 'vitest';
 import { generateInvoice } from '../generateInvoice.ts';
-import { basket } from '../data/testBaskets.ts';
+import { basket } from '../data/testBasket.ts';
 
 describe('generateInvoice', () => {
   it('should return an object with the desired output data', () => {
     expect(generateInvoice(basket)).toEqual({
-      products: [
-        [2, 'flacons de parfum importés', 2799, 6998],
-        [1, 'flacon de parfum', 1899, 2279],
-        [3, 'boîtes de pilules contre la migraine', 975, 2925],
-        [2, 'boîtes de chocolats importées', 1125, 2370],
+      lines: [
+        {
+          quantity: 2,
+          name: 'flacons de parfum importés',
+          price: 2799,
+          total: 6998,
+        },
+        { quantity: 1, name: 'flacon de parfum', price: 1899, total: 2279 },
+        {
+          quantity: 3,
+          name: 'boîtes de pilules contre la migraine',
+          price: 975,
+          total: 2925,
+        },
+        {
+          quantity: 2,
+          name: 'boîtes de chocolats importées',
+          price: 1125,
+          total: 2370,
+        },
       ],
       taxesAmount: 1900,
       basketPrice: 14572,

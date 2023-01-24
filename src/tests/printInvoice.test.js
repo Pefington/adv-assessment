@@ -1,6 +1,6 @@
 import { describe, it, expect, vitest } from 'vitest';
 import { printInvoice } from '../printInvoice.ts';
-import { basket } from '../data/testBaskets.ts';
+import { basket } from '../data/testBasket.ts';
 
 describe('printInvoice', () => {
   it('should console.log a formatted invoice', () => {
