@@ -89,7 +89,7 @@ Total : 145,7
 
 Le projet utilise Node et pnpm comme package manager.
 
-* cloner the repo
+* cloner le repo
 * `pnpm i`
 
 ## UTILISATION
