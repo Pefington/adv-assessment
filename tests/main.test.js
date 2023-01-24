@@ -1,68 +1,68 @@
 import { describe, expect, it } from 'vitest';
 import {
+  basket3,
+  applyRoundingStep,
   calculateProductTax,
-  calculateAfterTaxProductPrice,
+  calculateProductPrice,
   calculateBasketTaxes,
-  calculateBasketTotal
+  calculateBasketTotal,
+  generateInvoice,
 } from '../src/main.ts';
 
-const testProductLocal = {
-  taxRate: 10,
-  isImported: false,
-  priceInCents: 80,
-  quantity: 2
-};
+const other1899 = basket3[1];
+const otherImport2799 = basket3[0];
+const essential975 = basket3[2];
 
-const testProductImported = {
-  taxRate: 10,
-  isImported: true,
-  priceInCents: 80,
-  quantity: 3
-};
-
-const testProductEssential = {
-  taxRate: 0,
-  isImported: false,
-  priceInCents: 80,
-  quantity: 1
-};
-
-const testBasket = [
-  testProductLocal,
-  testProductImported,
-  testProductEssential,
-];
-
-describe('calculateProductTax', () => {
-  it('should calculate the tax to pay for a local product', () => {
-    expect(calculateProductTax(testProductLocal)).toStrictEqual(10);
+describe('applyRoundingStep', () => {
+  it('should NOT round to 5 cents if the ceiling is a multiple of 5 cents', () => {
+    expect(applyRoundingStep(379.8)).toStrictEqual(380);
   });
-  it('should calculate the tax to pay for an imported product', () => {
-    expect(calculateProductTax(testProductImported)).toStrictEqual(15);
+  it('should round a price UP to the nearest 5 cents otherwise', () => {
+    expect(applyRoundingStep(101)).toStrictEqual(105);
   });
 });
 
-describe('calculateFinalProductPrice', () => {
+describe('calculateProductTax', () => {
+  it('should calculate the tax to pay for a local product', () => {
+    expect(calculateProductTax(other1899)).toStrictEqual(380);
+  });
+  it('should calculate the tax to pay for an imported product', () => {
+    expect(calculateProductTax(otherImport2799)).toStrictEqual(700);
+  });
+});
+
+describe('calculateProductPrice', () => {
   it("should return a local essential product's initial price", () => {
-    expect(calculateAfterTaxProductPrice(testProductEssential)).toStrictEqual(
-      80
-    );
+    expect(calculateProductPrice(essential975)).toStrictEqual(975);
   });
   it("should calculate a product's price after taxes", () => {
-    expect(calculateAfterTaxProductPrice(testProductImported)).toStrictEqual(
-      95
-    );
+    expect(calculateProductPrice(otherImport2799)).toStrictEqual(3499);
   });
 });
 
 describe('calculateBasketTaxes', () => {
   it("should return the total of all the basket's products taxes to pay", () => {
-    expect(calculateBasketTaxes(testBasket)).toStrictEqual(65);
+    expect(calculateBasketTaxes(basket3)).toStrictEqual(1900);
   });
 });
 
 describe('calculateBasketTotal', () => {
-  it("should return the total price for the basket, including taxes", () => {
-    expect(calculateBasketTotal(testBasket)).toStrictEqual(545);
+  it('should return the total price for the basket, including taxes', () => {
+    expect(calculateBasketTotal(basket3)).toStrictEqual(14572);
   });
-} );
+});
+
+describe('generateInvoice', () => {
+  it('should return an object with the desired output data', () => {
+    expect(generateInvoice(basket3)).toEqual({
+      products: [
+        [2, 'flacons de parfum importés', 6998],
+        [1, 'flacon de parfum', 2279],
+        [3, 'boîtes de pilules contre la migraine', 2925],
+        [2, 'boîtes de chocolats importées', 2370],
+      ],
+      taxesAmount: 1900,
+      totalPrice: 14572,
+    });
+  });
+});

@@ -4,34 +4,59 @@ const enum TAX_RATE {
   Other = 20,
 }
 
-const ADDITIONAL_IMPORT_TAX_RATE = 5;
+const IMPORT_TAX_RATE = 5;
 const ROUNDING_STEP = 5;
 
 type Basket = Product[];
 type PriceInCents = number;
+type Quantity = number;
+type DisplayName = string;
 
 interface Product {
-  nameSingular: string;
-  namePlural: string;
+  nameSingular: DisplayName;
+  namePlural: DisplayName;
   taxRate: TAX_RATE;
   isImported: boolean;
   priceInCents: PriceInCents;
-  quantity: number;
+  quantity: Quantity;
 }
 
-// interface Invoice {
-//   basket: Basket;
-//   totalTaxes: PriceInCents;
-//   totalPrice: PriceInCents;
+interface Invoice {
+  products: Array<[Quantity, DisplayName, PriceInCents]>;
+  taxesAmount: PriceInCents;
+  totalPrice: PriceInCents;
+}
+
+// export function displayInvoice( invoice: Invoice ): void {
+//   console.log(invoice)
 // }
 
-export function calculateBasketTotal( basket: Basket ): PriceInCents {
-  let basketTotal = 0
-  for ( const product of basket ) {
-    const productPrice = calculateAfterTaxProductPrice( product )
-    basketTotal += productPrice * product.quantity
+export function generateInvoice(basket: Basket): Invoice {
+  const invoice: Invoice = {
+    products: [],
+    taxesAmount: 0,
+    totalPrice: 0,
+  };
+  basket.forEach((product) => {
+    const isSingle = product.quantity === 1;
+    invoice.products.push([
+      product.quantity,
+      isSingle ? product.nameSingular : product.namePlural,
+      calculateProductPrice(product) * product.quantity
+    ]);
+  });
+  invoice.taxesAmount = calculateBasketTaxes(basket);
+  invoice.totalPrice = calculateBasketTotal(basket);
+  return invoice;
+}
+
+export function calculateBasketTotal(basket: Basket): PriceInCents {
+  let basketTotal = 0;
+  for (const product of basket) {
+    const productPrice = calculateProductPrice(product);
+    basketTotal += productPrice * product.quantity;
   }
-  return basketTotal
+  return basketTotal;
 }
 
 export function calculateBasketTaxes(basket: Basket): PriceInCents {
@@ -43,21 +68,26 @@ export function calculateBasketTaxes(basket: Basket): PriceInCents {
   return basketTaxes;
 }
 
-export function calculateAfterTaxProductPrice(product: Product): PriceInCents {
+export function calculateProductPrice(product: Product): PriceInCents {
   const productTaxesInCents = calculateProductTax(product);
   return product.priceInCents + productTaxesInCents;
 }
 
 export function calculateProductTax(product: Product): PriceInCents {
-  let taxRate = product.taxRate;
-  if (product.isImported) taxRate += ADDITIONAL_IMPORT_TAX_RATE;
+  const tax = applyRoundingStep(product.priceInCents * product.taxRate / 100);
+  if (!product.isImported) return tax;
 
-  const totalTaxInCents = (product.priceInCents * taxRate) / 100;
-  const roundingRemainder = totalTaxInCents % ROUNDING_STEP;
-  if (roundingRemainder === 0) return totalTaxInCents;
+  const importTax = applyRoundingStep(product.priceInCents * IMPORT_TAX_RATE / 100);
+  return tax + importTax;
+}
 
-  const roundingCorrection = ROUNDING_STEP - roundingRemainder;
-  return totalTaxInCents + roundingCorrection;
+export function applyRoundingStep(tax: number): PriceInCents {
+  const taxInCents = Math.ceil(tax);
+  const roundingRemainder = taxInCents % ROUNDING_STEP;
+  if (roundingRemainder === 0) return taxInCents;
+
+  const roundingCorrection: number = ROUNDING_STEP - roundingRemainder;
+  return taxInCents + roundingCorrection;
 }
 
 export const basket1: Basket = [
@@ -140,3 +170,5 @@ export const basket3: Basket = [
     quantity: 2,
   },
 ];
+
+// calculateProductPrice(basket3[0]);
