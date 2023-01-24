@@ -105,6 +105,8 @@ ts-node est utilisé sous le capot pour exécuter le code, sans émettre de java
 Vitest a été utilisé pour les tests après divers problèmes avec Jest liés à TypeScript et les modules ESM.
 L'usage en est identique.
 
+Copilot a été désactivé pour le projet.
+
 ### [It's a trap!](https://i.kym-cdn.com/entries/icons/original/000/000/157/itsatrap.jpg)
 
 Des erreurs ont été détectées dans les outputs de rérérences, à savoir :
