@@ -5,12 +5,11 @@ import { Basket } from './types/types.js';
 export function printInvoice(basket: Basket): void {
   const invoice = generateInvoice(basket);
 
-  invoice.products.forEach((product) => {
-    const [quantity, name, price, totalProductPrice] = product;
+  invoice.lines.forEach((line) => {
     console.log(
-      `* ${quantity} ${name} à ${toFrenchFormat(price)}\xa0€ : ${toFrenchFormat(
-        totalProductPrice
-      )}\xa0€ TTC`
+      `* ${line.quantity} ${line.name} à ${toFrenchFormat(
+        line.price
+      )}\xa0€ : ${toFrenchFormat(line.total)}\xa0€ TTC`
     );
   });
 

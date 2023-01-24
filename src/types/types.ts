@@ -2,7 +2,6 @@ import { TAX_RATE } from '../data/constants.js';
 
 export type Basket = Product[];
 export type PriceInCents = number;
-export type TotalInCents = PriceInCents;
 export type Quantity = number;
 export type DisplayName = string;
 
@@ -15,8 +14,15 @@ export interface Product {
   quantity: Quantity;
 }
 
+export interface InvoiceLine {
+  quantity: Quantity
+  name: DisplayName
+  price: PriceInCents
+  total: PriceInCents
+}
+
 export interface Invoice {
-  products: Array<[Quantity, DisplayName, PriceInCents, TotalInCents]>;
+  lines: InvoiceLine[]
   taxesAmount: PriceInCents;
   basketPrice: PriceInCents;
 }
