@@ -1,5 +1,5 @@
-import { ROUNDING_STEP } from './constants.js';
-import { PriceInCents } from './types.js';
+import { ROUNDING_STEP } from './data/constants.js';
+import { PriceInCents } from './types/types.js';
 
 export function applyRoundingStep(tax: number): PriceInCents {
   const taxInCents = Math.ceil(tax);

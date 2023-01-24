@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { calculateBasketTaxes } from '../src/calculateBasketTaxes';
-import { basket } from '../src/testBaskets';
+import { calculateBasketTaxes } from '../calculateBasketTaxes.ts';
+import { basket } from '../data/testBaskets.ts';
 
 describe('calculateBasketTaxes', () => {
   it("should return the total of all the basket's products taxes to pay", () => {

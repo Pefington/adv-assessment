@@ -101,6 +101,7 @@ Le projet utilise Node et pnpm comme package manager.
 
 ## EXPLICATIONS
 
+ts-node est utilisé sous le capot pour exécuter le code, sans émettre de javascript.
 Vitest a été utilisé pour les tests après divers problèmes avec Jest liés à TypeScript et les modules ESM.
 L'usage en est identique.
 

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { generateInvoice } from '../src/generateInvoice';
-import { basket } from '../src/testBaskets';
+import { generateInvoice } from '../generateInvoice.ts';
+import { basket } from '../data/testBaskets.ts';
 
 describe('generateInvoice', () => {
   it('should return an object with the desired output data', () => {

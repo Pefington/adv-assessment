@@ -1,5 +1,5 @@
 import { TAX_RATE } from './constants.js';
-import { Basket } from './types.js';
+import { Basket } from '../types/types.js';
 
 export const basket1: Basket = [
   {

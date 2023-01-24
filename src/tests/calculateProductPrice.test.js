@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { calculateProductPrice } from '../src/calculateProductPrice';
-import { essential975, otherImport2799 } from '../src/testBaskets';
+import { calculateProductPrice } from '../calculateProductPrice.ts';
+import { essential975, otherImport2799 } from '../data/testBaskets.ts';
 
 describe('calculateProductPrice', () => {
   it("should return a local essential product's initial price", () => {

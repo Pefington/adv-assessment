@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { calculateProductTax } from '../src/calculateProductTax';
-import { other1899, otherImport2799 } from '../src/testBaskets';
+import { calculateProductTax } from '../calculateProductTax.ts';
+import { other1899, otherImport2799 } from '../data/testBaskets.ts';
 
 describe('calculateProductTax', () => {
   it('should calculate the tax to pay for a local product', () => {

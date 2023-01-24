@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { applyRoundingStep } from '../src/applyRoundingStep';
+import { applyRoundingStep } from '../applyRoundingStep.ts';
 
 describe('applyRoundingStep', () => {
   it('should NOT round to 5 cents if the ceiling is a multiple of 5 cents', () => {
