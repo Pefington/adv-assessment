@@ -1,7 +1,7 @@
-import { calculateBasketTaxes } from "./calculateBasketTaxes.js";
-import { calculateBasketTotal } from "./calculateBasketTotal.js";
-import { calculateProductPrice } from "./calculateProductPrice.js";
-import { Basket, Invoice } from "./types.js";
+import { calculateBasketTaxes } from './calculateBasketTaxes.js';
+import { calculateBasketTotal } from './calculateBasketTotal.js';
+import { calculateProductPrice } from './calculateProductPrice.js';
+import { Basket, Invoice } from './types.js';
 
 export function generateInvoice(basket: Basket): Invoice {
   const invoice: Invoice = {
@@ -19,8 +19,8 @@ export function generateInvoice(basket: Basket): Invoice {
       product.priceInCents,
       calculateProductPrice(product) * product.quantity,
     ]);
-  } );
-  
+  });
+
   invoice.taxesAmount = calculateBasketTaxes(basket);
   invoice.basketPrice = calculateBasketTotal(basket);
   return invoice;

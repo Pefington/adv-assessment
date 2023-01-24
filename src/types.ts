@@ -1,4 +1,4 @@
-import { TAX_RATE } from "./taxRates.js";
+import { TAX_RATE } from './constants.js';
 
 export type Basket = Product[];
 export type PriceInCents = number;

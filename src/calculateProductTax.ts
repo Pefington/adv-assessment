@@ -1,5 +1,5 @@
 import { applyRoundingStep } from './applyRoundingStep.js';
-import { IMPORT_TAX_RATE } from './taxRates.js';
+import { TAX_RATE } from './constants.js';
 import { Product, PriceInCents } from './types.js';
 
 export function calculateProductTax(product: Product): PriceInCents {
@@ -7,7 +7,7 @@ export function calculateProductTax(product: Product): PriceInCents {
   if (!product.isImported) return tax;
 
   const importTax = applyRoundingStep(
-    (product.priceInCents * IMPORT_TAX_RATE) / 100
+    (product.priceInCents * TAX_RATE.Import) / 100
   );
   return tax + importTax;
 }
