@@ -31,8 +31,8 @@ describe('generateInvoice', () => {
           total: 2370,
         },
       ],
-      taxesAmount: 1900,
-      basketPrice: 14572,
+      taxes: 1900,
+      total: 14572,
     });
   });
 });

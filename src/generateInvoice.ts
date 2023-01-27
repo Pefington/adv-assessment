@@ -6,8 +6,8 @@ import { Basket, Invoice } from './types/types.js';
 export function generateInvoice(basket: Basket): Invoice {
   const invoice: Invoice = {
     lines: [],
-    taxesAmount: 0,
-    basketPrice: 0,
+    taxes: 0,
+    total: 0,
   };
 
   basket.forEach((product) => {
@@ -15,7 +15,7 @@ export function generateInvoice(basket: Basket): Invoice {
     invoice.lines.push(invoiceLine);
   });
 
-  invoice.taxesAmount = calculateBasketTaxes(basket);
-  invoice.basketPrice = calculateBasketTotal(basket);
+  invoice.taxes = calculateBasketTaxes(basket);
+  invoice.total = calculateBasketTotal(basket);
   return invoice;
 }

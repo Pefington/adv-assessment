@@ -15,14 +15,14 @@ export interface Product {
 }
 
 export interface InvoiceLine {
-  quantity: Quantity
-  name: DisplayName
-  price: PriceInCents
-  total: PriceInCents
+  quantity: Quantity;
+  name: DisplayName;
+  price: PriceInCents;
+  total: PriceInCents;
 }
 
 export interface Invoice {
-  lines: InvoiceLine[]
-  taxesAmount: PriceInCents;
-  basketPrice: PriceInCents;
+  lines: InvoiceLine[];
+  taxes: PriceInCents;
+  total: PriceInCents;
 }
