@@ -1,11 +1,11 @@
 import { describe, it, expect, vitest } from 'vitest';
 import { printInvoice } from '../printInvoice.ts';
-import { basket } from '../data/testBasket.ts';
+import { testBasket } from '../data/testBasket.ts';
 
 describe('printInvoice', () => {
   it('should console.log a formatted invoice', () => {
     const logSpy = vitest.spyOn(global.console, 'log');
-    printInvoice(basket);
+    printInvoice(testBasket);
 
     expect(logSpy).toHaveBeenCalledWith(
       '* 2 flacons de parfum importés à 27,99\xa0€ : 69,98\xa0€ TTC'

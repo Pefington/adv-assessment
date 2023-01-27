@@ -1,6 +1,6 @@
 import { calculateBasketTaxes } from './calculateBasketTaxes.js';
 import { calculateBasketTotal } from './calculateBasketTotal.js';
-import { calculateProductPrice } from './calculateProductPrice.js';
+import { generateInvoiceLine } from './generateInvoiceLine.js';
 import { Basket, Invoice } from './types/types.js';
 
 export function generateInvoice(basket: Basket): Invoice {
@@ -11,14 +11,8 @@ export function generateInvoice(basket: Basket): Invoice {
   };
 
   basket.forEach((product) => {
-    const isSingle = product.quantity === 1;
-
-    invoice.lines.push({
-      quantity: product.quantity,
-      name: isSingle ? product.nameSingular : product.namePlural,
-      price: product.priceInCents,
-      total: calculateProductPrice(product) * product.quantity,
-    });
+    const invoiceLine = generateInvoiceLine(product);
+    invoice.lines.push(invoiceLine);
   });
 
   invoice.taxesAmount = calculateBasketTaxes(basket);

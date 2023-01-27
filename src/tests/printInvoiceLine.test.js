@@ -1,12 +1,12 @@
 import { describe, it, expect, vitest } from 'vitest';
 import { generateInvoice } from '../generateInvoice.ts';
 import { printInvoiceLine } from '../printInvoiceLine.ts';
-import { basket } from '../data/testBasket.ts';
+import { testBasket } from '../data/testBasket.ts';
 
 describe('printInvoiceLine', () => {
   it('should console.log a formatted invoice', () => {
     const logSpy = vitest.spyOn(global.console, 'log');
-    const invoice = generateInvoice(basket);
+    const invoice = generateInvoice(testBasket);
     const line = invoice.lines[0];
     printInvoiceLine(line);
 

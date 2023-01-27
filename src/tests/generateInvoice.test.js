@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { generateInvoice } from '../generateInvoice.ts';
-import { basket } from '../data/testBasket.ts';
+import { testBasket } from '../data/testBasket.ts';
 
 describe('generateInvoice', () => {
   it('should return an object with the desired output data', () => {
-    expect(generateInvoice(basket)).toEqual({
+    expect(generateInvoice(testBasket)).toEqual({
       lines: [
         {
           quantity: 2,
