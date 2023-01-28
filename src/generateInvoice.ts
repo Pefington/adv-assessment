@@ -1,5 +1,5 @@
-import { calculateBasketTaxes } from './calculateBasketTaxes.js';
-import { calculateBasketTotal } from './calculateBasketTotal.js';
+import { calculateTax } from './calculateTax.js';
+import { calculatePrice } from './calculatePrice.js';
 import { generateInvoiceLine } from './generateInvoiceLine.js';
 import { Basket, Invoice } from './types/types.js';
 
@@ -15,7 +15,7 @@ export function generateInvoice(basket: Basket): Invoice {
     invoice.lines.push(invoiceLine);
   });
 
-  invoice.taxes = calculateBasketTaxes(basket);
-  invoice.total = calculateBasketTotal(basket);
+  invoice.taxes = calculateTax(basket);
+  invoice.total = calculatePrice(basket);
   return invoice;
 }

@@ -1,13 +1,12 @@
-import { calculateProductPrice } from './calculateProductPrice.js';
+import { calculatePrice } from './calculatePrice.js';
 import { InvoiceLine, Product } from './types/types.js';
 
 export function generateInvoiceLine(product: Product): InvoiceLine {
-  const isSingleProduct = product.quantity === 1;
-
+  const isSingle = (product: Product): boolean => product.quantity === 1;
   return {
     quantity: product.quantity,
-    name: isSingleProduct ? product.nameSingular : product.namePlural,
+    name: isSingle(product) ? product.nameSingular : product.namePlural,
     price: product.priceInCents,
-    total: calculateProductPrice(product) * product.quantity,
+    total: calculatePrice(product) * product.quantity,
   };
 }
